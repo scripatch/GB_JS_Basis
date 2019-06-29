@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Homework 2-3</title>
+</head>
+<body>
+<script>
+    'use strict';
+
+    let a = Math.floor(Math.random()*200) - 100;
+    let b = Math.floor(Math.random()*200) - 100;
+
+    if (a >= 0 && b >= 0) {
+        alert(`Разность двух положительных целых чисел ${a} и ${b} равна ${a-b}`);
+    } else if (a * b > 0) {
+        alert(`Произведение двух отрицательных целых чисел ${a} и ${b} равна ${a*b}`);
+    } else {
+        alert(`Сумма двух чисел разных знаков ${a} и ${b} равна ${a+b}`);
+    }
+
+
+</script>
+</body>
+</html>

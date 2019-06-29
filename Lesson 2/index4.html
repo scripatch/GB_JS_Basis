@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Homework 2-4</title>
+</head>
+<body>
+
+<script>
+    'use strict';
+
+    /**
+     * Функция вычитания двух аргументов
+     * @param {number} a Уменьшаемое
+     * @param {number} b Вычитаемое
+     * @returns {number} Разность - Число полученное в результате вычитания уменьшаемого на вычитаемое
+     */
+    function subtraction (a, b) {
+        return a - b;
+    }
+
+    /**
+     * Функция сложения двух аргументов
+     * @param a {number} Первое слагаемое
+     * @param b {number} Второе слагаемое
+     * @returns {number} Сумма - число полученное в результате сложения двух слагаемых
+     */
+    function addition (a, b) {
+        return a + b;
+    }
+
+
+    /**
+     * Функция деления двух аргументов
+     * @param a {number} Делимое
+     * @param b {number} Делитель
+     * @returns {number} Отношение - Число полученное в результате деления делимого на делитель
+     */
+    let division = function (a, b) {
+        return a / b;
+    };
+
+    /**
+     * Функция умножения двух аргументов (множителей, сомножителей)
+     * @param a {number} Множимое
+     * @param b {number} Множитель
+     * @returns {number} Произведение - Число полученное в результате умножения множимого на множитель
+     */
+    let multiplication = (a, b) => a * b;
+
+    let a = Math.floor(Math.random()*200) - 100;
+    let b = Math.floor(Math.random()*200) - 100;
+
+    alert(`Вычитание чисел ${a} и ${b} с помощью функции subtraction возвращает значение ${subtraction(a, b)}`);
+    alert(`Сложение чисел ${a} и ${b} с помощью функции addition возвращает значение ${addition(a, b)}`);
+    alert(`Деление чисел ${a} и ${b} с помощью функции division возвращает значение ${division(a, b)}`);
+    alert(`Умножение чисел ${a} и ${b} с помощью функции multiplication возвращает значение ${multiplication(a, b)}`);
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Homework 2-5</title>
+</head>
+<body>
+
+<script>
+    'use strict';
+
+    /**
+     * Функция вычитания двух аргументов
+     * @param {number} a Уменьшаемое
+     * @param {number} b Вычитаемое
+     * @returns {number} Разность - Число полученное в результате вычитания уменьшаемого на вычитаемое
+     */
+    function subtraction(a, b) {
+        return a - b;
+    }
+
+    /**
+     * Функция сложения двух аргументов
+     * @param a {number} Первое слагаемое
+     * @param b {number} Второе слагаемое
+     * @returns {number} Сумма - число полученное в результате сложения двух слагаемых
+     */
+    function addition(a, b) {
+        return a + b;
+    }
+
+
+    /**
+     * Функция деления двух аргументов
+     * @param a {number} Делимое
+     * @param b {number} Делитель
+     * @returns {number} Отношение - Число полученное в результате деления делимого на делитель
+     */
+    let division = function (a, b) {
+        return a / b;
+    };
+
+    /**
+     * Функция умножения двух аргументов (множителей, сомножителей)
+     * @param a {number} Множимое
+     * @param b {number} Множитель
+     * @returns {number} Произведение - Число полученное в результате умножения множимого на множитель
+     */
+    let multiplication = (a, b) => a * b;
+
+    /**
+     * Функция вычисления переданного арифметического действия над двумя переданными аргументами
+     * @param arg1 {number} Первый аргумент
+     * @param arg2 {number} Второй аргумент
+     * @param operation {string} Выполняемое арифметичское действие: "+", "-", "/", "*"
+     * @returns {number} Результат вычисления арифмитического действия над двумя аргументами. NaN в случае, если действие не определено
+     */
+    function mathOperation(arg1, arg2, operation) {
+        switch (operation) {
+            case '+':
+                return addition(arg1, arg2);
+            case '-':
+                return subtraction(arg1, arg2);
+            case '/':
+                return  division(arg1, arg2);
+            case '*':
+                return multiplication(arg1, arg2);
+            default:
+                return NaN;
+        }
+    }
+
+    let a = Math.floor(Math.random() * 200) - 100;
+    let b = Math.floor(Math.random() * 200) - 100;
+    let operations = ['+', '-', '/', '*'];
+    let operation = operations[Math.floor(Math.random() * 4)];
+
+    alert(`Результат вычисления операции "${operation}" над числами ${a} и ${b} равен ${mathOperation(a, b, operation)}`);
+
+</script>
+
+</body>
+</html>

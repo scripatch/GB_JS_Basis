@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Homework 2-6</title>
+</head>
+<body>
+<script>
+    'use strict';
+
+    /**
+     * Функция склонения слова после целого числа.
+     * @param number {Integer} Числительное которое определяет склонение следующего за ним слова
+     * @param wordOptions {array} Три варианта склоенения слова после числительного
+     * в обязательно следующем порядке:
+     * 1 - для числа заканчивающегося на единицу
+     * 2 - для чисел заканчивающихся на 2, 3 и 4
+     * 3 - для всех остальных чисел.
+     * Например ['рубль', 'рубля', 'рублей']
+     * @returns {string} возвращается подходящий вариант склонения слова в зависимости от числительного
+     */
+    function decline (number, wordOptions) {
+
+        if (!Number.isInteger(number)) {
+            return "Ошибка: Не целое число!";
+        }
+
+        if (!Array.isArray(wordOptions) || wordOptions.length < 3) {
+            return "Ошибка: Некорректный массив вариантов слов после числительного";
+        }
+
+        let mod = number % 10;
+        if (mod === 1) {
+            return wordOptions[0];
+        } else if (mod > 1 && mod < 5) {
+            return wordOptions[1];
+        } else {
+            return wordOptions[2];
+        }
+    }
+
+    let userNumber;
+
+    do {
+        userNumber = +prompt('Введите целое число');
+    }
+    while (!Number.isInteger(userNumber));
+
+    let rubbleOptions = ['рубль','рубля','рублей'];
+
+    alert(`Ваша сумма в ${userNumber} ${decline(userNumber, rubbleOptions)} успешно зачислена`);
+
+</script>
+</body>
+</html>
