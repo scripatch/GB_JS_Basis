@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Homework 3-5</title>
+</head>
+
+<body>
+    <script>
+        const arr = [
+            [2, 4, 6],
+            [1, 5, 10],
+            [7, 4, 1],
+        ];
+
+        let arrSum = [];
+
+        /**
+         * Функция получения индекса максимального значения в массиве чисел
+         * @param {array} array Массив в котором ищется индекс максимального значения
+         * @returns {number} Индекс максимального значения в переданном массиве
+         */
+        function getIndexOfMaxValue(array) {
+            let indexOfMaxValue = 0;
+            for (let i = 1; i < array.length; i++) {
+                if (array[indexOfMaxValue] < array[i]) {
+                    indexOfMaxValue = i;
+                }
+            }
+            return indexOfMaxValue;
+        }
+
+        /**
+         * Функция получения минимального значения в массиве чисел
+         * @param {array} array Массив в котором ищется минимальное значение
+         * @returns {number} Минимальное значение в переданном массиве
+         */
+        function getMinValueOfArray(array) {
+            let minValueOfArray = array[0];
+            for (let i = 1; i < array.length; i++) {
+                if (minValueOfArray > array[i]) {
+                    minValueOfArray = array[i];
+                }
+            }
+            return minValueOfArray;
+        }
+
+        for (let i = 0; i < arr.length; i++) {
+            let sum = 0;
+            for (let j = 0; j < arr[i].length; j++) {
+                sum += arr[i][j];
+            }
+            arrSum.push(sum);
+        }
+
+        let indexMaxSum = getIndexOfMaxValue(arrSum);
+        let minValue = getMinValueOfArray(arr[indexMaxSum]);
+
+        console.log(`Индекс массива, у которого сумма всех чисел максимальна - ${indexMaxSum}`);
+        console.log(`Минимальное значение в массиве с индексом ${indexMaxSum} - ${minValue}`);
+    </script>
+</body>
+
+</html>
