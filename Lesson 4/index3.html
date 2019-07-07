@@ -9,19 +9,143 @@
 <body>
 <script>
 
-const qaBase = {
-    initialQuizzes : [ {}
+    'use strict';
 
-    ]
-}
+    const qaBase = {
+        riddles: [
+            {
+                question: "Вопрос1",
+                answers: ["Правильный ответ", "Неправильный ответ1", "Неправильный ответ2", "Неправильный ответ3"]
+            },
+            {
+                question: "Вопрос2",
+                answers: ["Правильный ответ", "Неправильный ответ1", "Неправильный ответ2", "Неправильный ответ3"]
+            },
+            {
+                question: "Вопрос3",
+                answers: ["Правильный ответ", "Неправильный ответ1", "Неправильный ответ2", "Неправильный ответ3"]
+            },
+            {
+                question: "Вопрос4",
+                answers: ["Правильный ответ", "Неправильный ответ1", "Неправильный ответ2", "Неправильный ответ3"]
+            },
+            {
+                question: "Вопрос5",
+                answers: ["Правильный ответ", "Неправильный ответ1", "Неправильный ответ2", "Неправильный ответ3"]
+            },
+            {
+                question: "Вопрос6",
+                answers: ["Правильный ответ", "Неправильный ответ1", "Неправильный ответ2", "Неправильный ответ3"]
+            },
+            {
+                question: "Вопрос7",
+                answers: ["Правильный ответ", "Неправильный ответ1", "Неправильный ответ2", "Неправильный ответ3"]
+            },
+        ],
+        getRiddles(numberOfQuestions) {
+            let riddles = [];
+            for (let i = 0; i < numberOfQuestions; i++) {
+                let riddle = {
+                    question: this.riddles[i].question,
+                    answers: {},
+                    correctAnswerKey: ""
+                };
+                let indexSequence = this.generateAnswersIndexes(this.riddles[i].answers.length);
+                for (let j = 0; j < this.riddles[i].answers.length; j++) {
+                    riddle.answers[indexSequence[j]] = this.riddles[i].answers[j];
+                    if (j === 0) {
+                        riddle.correctAnswerKey = indexSequence[j];
+                    }
+                }
+                riddles.push(riddle);
+            }
+            return riddles;
+        },
+        generateAnswersIndexes(numberOfAnswers) {
+            let sequence = [];
+            while (sequence.length < numberOfAnswers) {
+                let randomIndex = String.fromCharCode(Math.floor(Math.random() * 4) + 97);
+                if (!sequence.includes(randomIndex)) {
+                    sequence.push(randomIndex);
+                }
+            }
+            return sequence;
+        }
 
-const settings = {
 
-}
+    };
 
-const gameMillionaire = {
-    run() {}
-}
-</script>    
+
+    const gameMillionaire = {
+        riddles: [{
+            question: "Вопрос",
+            answers: {
+                a: "answer a",
+                b: "answer b"
+            },
+            correctAnswerKey: "a"
+        }],
+        score: 0,
+        currentIndex: 0,
+        numberOfRiddles: 0,
+        getUserAnswer() {
+            return prompt(this.getRiddle());
+        },
+        getRiddle() {
+            let message = `Вопрос: ${this.riddles[this.currentIndex].question}\n`;
+            let keys = Object.keys(this.riddles[this.currentIndex].answers).sort();
+            for (let key of keys) {
+                message += `${key}. ${this.riddles[this.currentIndex].answers[key]} \n`;
+            }
+            message += `Or type "q" to quit the game.`;
+            return message;
+        },
+        validateAnswer(answer) {
+            return (Object.keys(this.riddles[this.currentIndex].answers).includes(answer) || answer === "q");
+        },
+        isExit(answer) {
+            return answer === 'q';
+        },
+        isCorrect(answer) {
+            return answer === this.riddles[this.currentIndex].correctAnswerKey;
+        },
+        init(numberOfRiddles) {
+            this.numberOfRiddles = numberOfRiddles;
+            this.riddles = qaBase.getRiddles(numberOfRiddles);
+        },
+        run(numberOfRiddles) {
+            this.init(numberOfRiddles);
+
+            alert('Welcome!');
+
+            while (this.currentIndex < this.numberOfRiddles) {
+
+                const userAnswer = this.getUserAnswer();
+
+                if (!this.validateAnswer(userAnswer)) {
+                    alert('Please be accurate. Can\'t validate your answer.');
+                    continue;
+                }
+
+                if (this.isExit(userAnswer)) {
+                    return;
+                }
+
+                if (this.isCorrect(userAnswer)) {
+                    alert('This is correct answer!');
+                    this.score++;
+                } else {
+                    alert('This is not correct.');
+                }
+                this.currentIndex++;
+            }
+
+            alert(`You answered correctly on ${this.score} of ${this.numberOfRiddles} questions.`)
+        }
+    };
+
+    gameMillionaire.run(5);
+
+</script>
 </body>
 </html>
