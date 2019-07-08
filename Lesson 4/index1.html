@@ -1,33 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Homework 4-1</title>
 </head>
+
 <body>
-<script>
-function decomposeToDigits (number) {
-    if (typeof number !== "number") {
-        number = +number;
-    }
+    <script>
 
-    if (Number.isNaN(number) || !Number.isInteger(number) || number < 0 || number > 999) {
-        console.log("Передано некорректное значение");
-        return {};
-    }
+        "use strict";
 
-    return {
-        firstDigit: number % 10,
-        secondDigit: Math.trunc(number / 10) % 10,
-        thirdDigit: Math.trunc(number / 100)
-    }
-}
+        /**
+         * Функция разложения числа на разряды
+         * @param {number} number - Целое число в диапазоне от 0 до 999, которое необходимо разложить на разряды
+         * @returns {object} - Объект с тремя параметрами-значениями разрядов: firstDigit, secondDigit, thirdDigit
+         */
+        function decomposeToDigits(number) {
+            if (typeof number !== "number") {
+                number = +number;
+            }
 
-let userNumber = prompt('Введите число от 0 до 999');
-console.log(decomposeToDigits(userNumber));
+            if (Number.isNaN(number) || !Number.isInteger(number) || number < 0 || number > 999) {
+                console.log("Передано некорректное значение");
+                return {};
+            }
 
-</script>
+            return {
+                firstDigit: number % 10,
+                secondDigit: Math.trunc(number / 10) % 10,
+                thirdDigit: Math.trunc(number / 100)
+            }
+        }
+
+        let userNumber = prompt('Введите число от 0 до 999');
+        console.log(decomposeToDigits(userNumber));
+
+    </script>
 </body>
+
 </html>
