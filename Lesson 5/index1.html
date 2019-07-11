@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
+    <style>
+        .fas {
+            font-size: 28px;
+        }
+
+        .black-figure {
+            color: black;
+            text-shadow: 0 0 5px white;
+        }
+
+        .white-figure {
+            color: white;
+            text-shadow: 0 0 5px black;
+        }
+
+        table, td {
+            border-collapse: collapse;
+        }
+
+        tr, td {
+            width: 40px;
+            height: 40px;
+        }
+
+        td {
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .board-border {
+            background-color: #eee;
+        }
+
+        .field-black {
+            background-color: black;
+
+        }
+
+        .field-white {
+            background-color: white;
+        }
+    </style>
+</head>
+<body>
+<script>
+
+    /**
+     * Объект - шахматная доска
+    */
+    const board = {
+
+        table: null,
+
+        /**
+         * Метод постановки фигуры в шахматную клетку. Если передать пустую фигуру, то очистит клетку
+         * @param {string} position - Адрес ячейки в формате "a1"
+         * @param {string} figure - Название фигуры в общепринятом обозначении: king, queen, pawn,... или пустое значение
+         * @param {string} color - Цвет фигуры: black или white
+         */
+        putFigure(position, figure, color = "white") {
+
+            let cellContent = document.getElementById("i-" + position);
+            cellContent.className = "fas";
+            if (figure) {
+                cellContent.classList.add("fa-chess-" + figure);
+                cellContent.classList.add(color+"-figure");
+                cellContent.dataset["figure"] = figure;
+            }
+
+        },
+
+        /**
+         * Функция расставляет начальное положение фигур на доске
+         */
+        renderStart() {
+            this.putFigure("a1", "rook", "white");
+            this.putFigure("b1", "knight", "white");
+            this.putFigure("c1", "bishop", "white");
+            this.putFigure("d1", "queen", "white");
+            this.putFigure("e1", "king", "white");
+            this.putFigure("f1", "bishop", "white");
+            this.putFigure("g1", "knight", "white");
+            this.putFigure("h1", "rook", "white");
+
+            this.putFigure("a8", "rook", "black");
+            this.putFigure("b8", "knight", "black");
+            this.putFigure("c8", "bishop", "black");
+            this.putFigure("d8", "queen", "black");
+            this.putFigure("e8", "king", "black");
+            this.putFigure("f8", "bishop", "black");
+            this.putFigure("g8", "knight", "black");
+            this.putFigure("h8", "rook", "black");
+
+            for (let i=1; i<9; i++) {
+                this.putFigure(`${String.fromCharCode(96+i)}2`, "pawn", "white");
+                this.putFigure(`${String.fromCharCode(96+i)}7`, "pawn", "black");
+            }
+
+        },
+
+        /**
+         * Функция инициализации шахматной доски. Отрисовывает доску и расставляет начальное положение фигур.
+         */
+        initTable() {
+            this.table = document.getElementById("game");
+            if (!this.table) {
+                this.table = document.createElement("table");
+                this.table.id = "game";
+                document.body.appendChild(this.table);
+            }
+            this.table.innerHTML = "";
+
+            for (let i = 0; i < 10; i++) {
+
+                let newRow = document.createElement("tr");
+                this.table.appendChild(newRow);
+                for (let j = 0; j < 10; j++) {
+                    let newCell = document.createElement("td");
+                    newRow.appendChild(newCell);
+
+                    // Заполним ячейки границы игрового поля и зададим стиль
+                    if (i === 0 || i === 9 || j === 0 || j === 9) {
+                        newCell.classList.add("board-border");
+
+                        // Заполним названия столбцов A,B,C,...
+                        if ((i === 0 || i === 9) && j > 0 && j < 9) {
+                            newCell.innerText = String.fromCharCode(64 + j);
+                        }
+
+                        // Заполним названия строк 1,2,3,....
+                        if ((j === 0 || j === 9) && i > 0 && i < 9) {
+                            newCell.innerText = (9 - i).toString();
+                        }
+                    } else {
+                        // Заполним ячейки границы игрового поля и зададим стиль
+                        newCell.classList.add("board-field");
+                        newCell.classList.add(`field-${(i + j) % 2 === 0 ? "white" : "black"}`);
+                        newCell.id = "td-" + String.fromCharCode(96 + j) + (9 - i);
+                        let cellContent = document.createElement("i");
+                        cellContent.classList.add("fas");
+                        cellContent.id = "i-" + String.fromCharCode(96 + j) + (9 - i);
+                        cellContent.dataset["figure"] = "";
+                        newCell.appendChild(cellContent);
+                    }
+                }
+            }
+            this.renderStart();
+        },
+
+    }
+
+    board.initTable();
+
+</script>
+</body>
+</html>
