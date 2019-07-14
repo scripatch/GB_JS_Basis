@@ -133,6 +133,10 @@ const gallery = {
     return galleryWrapperElement;
   },
 
+  /**
+   * Функция перелистывания, в указанном направлении
+   * @param direction {string} Направление перелистывания
+   */
   slideImage(direction) {
     let image;
     if (direction === 'left') {
@@ -143,10 +147,17 @@ const gallery = {
     this.currentSmallImage = image;
     this.openImage(image.dataset.full_image_url);
   },
+
+  /**
+   * Функция перелистывания влево
+   */
   sliderLeft() {
     this.slideImage('left');
   },
 
+  /**
+   * Функция перелистывания вправо
+   */
   sliderRight() {
     this.slideImage('right');
   },
