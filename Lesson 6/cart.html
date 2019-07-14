@@ -18,11 +18,18 @@
 
     const cart =
     {
+        /**
+         * Метод очищающий корзину, сбрасывает на ноль значение количества товара и итог
+         */
         clearCart() {
             localStorage.setItem('goods_amount','0');
             localStorage.setItem('total_price','0');
         },
 
+        /**
+         * Метод добавляющий в корзину товар, увеличивает значение количества товара и итог в localStorage
+         * @param price {string} Значиние цены товара. Строковое значение, т.к. в data-set и в localStorage удобнее писать строки
+         */
         addToCart(price) {
             let amount = parseInt(localStorage.getItem('goods_amount') || '0');
             let totalPrice = parseInt(localStorage.getItem('total_price') || '0');
@@ -34,6 +41,10 @@
             localStorage.setItem('total_price', totalPrice);
         },
 
+        /**
+         * Обработчик нажатия на кнопку. В случае с кнопками товаров, добавляет их в корзину, либо чистит корзину в случае кнопки очистить корзину
+         * @param event Событие нажатия на кнопку
+         */
         buttonHandler(event) {
             if (event.target.classList.contains('buy-btn')) {
                 this.addToCart(event.target.dataset.price);
@@ -44,18 +55,25 @@
             this.updateCart();
         },
 
+        /**
+         * Функция перерисовки содержимого корзины на странице
+         */
         updateCart() {
             document.getElementById('goods_amount').innerText = localStorage.getItem('goods_amount') || '0';
             document.getElementById('total_price').innerText = localStorage.getItem('total_price') || '0';
         },
 
+        /**
+         * Иницализация нашей корзины. Подвешиваем обработчик нажатия на кнопки
+         * и обработчик загрузки страницы для начального обновления содержимого корзины из localStorage
+         */
         init() {
             document.getElementById('buttons').addEventListener('click', event => this.buttonHandler(event));
+            window.addEventListener('load', this.updateCart);
         }
     }
 
     cart.init();
-    window.addEventListener('load', cart.updateCart);
 
 </script>
 </body>
